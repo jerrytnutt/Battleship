@@ -36,6 +36,7 @@ const Main = (props) =>{
         }
         return x
       })
+
       let dis = true;
       if(props.userMessage === "Place Your Ships!" || props.userMessage === "Select Your Difficulty!"){
         dis = false
@@ -99,18 +100,17 @@ const Main = (props) =>{
     </div> : 
 
   
-<div className='radio'>
+<div>
 <h4>Difficulty</h4>
 
 <div>
-<input onClick={()=>{props.setshipDirection('horizontal')}} type="radio"  name="difficulty" ></input>
-<label>Easy</label>
+<button onClick={()=>{props.changeDifficulty('easy')}} type="radio"  name="difficulty" >Easy</button>
 </div>
 
 <div>
-<input onClick={()=>{props.setshipDirection('vertical')}} type="radio" name="difficulty" ></input>
-<label>Hard</label>
+<button onClick={()=>{props.changeDifficulty('hard')}} type="radio" name="difficulty" >Hard</button>
 </div>
+
 
 </div>}</div> 
   

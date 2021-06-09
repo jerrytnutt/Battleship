@@ -11,16 +11,30 @@ function App() {
   const [gameActive,setgameActive] = useState(false)
   const [userMessage,setuserMessage] = useState('Start Your Game!')
   const [shipDirection,setshipDirection] = useState('horizontal')
+  const [Difficulty,setDifficulty] = useState('easy')
 
   const startGame = () =>{
     let human = player('human')
-    human.gameBoard = gameBoard('AI')
+    human.gameBoard = gameBoard()
     let computer= player('AI')
-    computer.gameBoard = gameBoard('human')
+    computer.gameBoard = gameBoard()
     sethumanPlayer(human)
     setcomputerPlayer(computer)
     setuserMessage('Place Your Ships!')
   };
+
+  const changeDifficulty = (level) => {
+    
+    if (level === 'hard'){
+      setDifficulty('hard')
+      
+
+    }
+    setuserMessage('Fight!')
+    setgameActive(true)
+
+
+  }
 
   const placeShips = (coordinates,direction,random,hover)=>{ 
    if (!gameActive && userMessage === "Place Your Ships!"){
@@ -32,21 +46,25 @@ function App() {
       computerCopy.gameBoard.placeNewShip(0,'horizontal',true)
       setcomputerPlayer(computerCopy)
       setuserMessage('Select Your Difficulty!')
-      setgameActive(true)
+      
       } 
     }
   };
  const recieveAttackCoordinates = (coordinates) =>{
+   
    if (gameActive === true){
     const computerCopy = Object.assign({}, computerPlayer);
+    
     const reaction = computerCopy.gameBoard.receiveAttack(coordinates,false)
     setcomputerPlayer(computerCopy)
-    if (reaction === 'prev'){
+    console.log(reaction)
+    if (reaction === 'This position has already been targeted'){
       return 0
     }
     let co = Math.floor(Math.random() * 100);
       const humanCopy = Object.assign({}, humanPlayer);
-      let possibleAttack = humanCopy.gameBoard.receiveAttack(co,true)
+      
+      let possibleAttack = humanCopy.gameBoard.receiveAttack(co,true,Difficulty)
       sethumanPlayer(humanCopy) 
         return 0
    }
@@ -62,7 +80,8 @@ function App() {
       recieveAttackCoordinates={recieveAttackCoordinates}
       userMessage={userMessage}
       shipDirection={shipDirection}
-      setshipDirection={setshipDirection}/>
+      setshipDirection={setshipDirection}
+      changeDifficulty={changeDifficulty}/>
       
     </div>
   );
