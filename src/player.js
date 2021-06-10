@@ -1,5 +1,5 @@
 
-import gameBoard from "./gameBoard"
+//import gameBoard from "./gameBoard"
 
 const player = (type) => {
   return {

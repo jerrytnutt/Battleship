@@ -11,68 +11,80 @@ function App() {
   const [gameActive,setgameActive] = useState(false)
   const [userMessage,setuserMessage] = useState('Start Your Game!')
   const [shipDirection,setshipDirection] = useState('horizontal')
-  const [Difficulty,setDifficulty] = useState('easy')
+  const [difficulty,setdifficulty] = useState('easy')
 
-  const startGame = () =>{
-    let human = player('human')
+  const initializeGame = () =>{
+    const human = player('human')
     human.gameBoard = gameBoard()
-    let computer= player('AI')
+    const computer= player('computer')
     computer.gameBoard = gameBoard()
     sethumanPlayer(human)
     setcomputerPlayer(computer)
     setuserMessage('Place Your Ships!')
+    setgameActive(false)
   };
 
   const changeDifficulty = (level) => {
-    
-    if (level === 'hard'){
-      setDifficulty('hard')
-      
-
-    }
-    setuserMessage('Fight!')
+    setdifficulty(level)
+    setuserMessage('Battle!')
     setgameActive(true)
-
-
-  }
+  };
 
   const placeShips = (coordinates,direction,random,hover)=>{ 
    if (!gameActive && userMessage === "Place Your Ships!"){
      const humanCopy = Object.assign({}, humanPlayer);
      humanCopy.gameBoard.placeNewShip(coordinates,direction,random,hover)
      sethumanPlayer(humanCopy)
+
     if(humanPlayer.gameBoard.shipsToPlace.length === 0){
       const computerCopy = Object.assign({}, computerPlayer);
       computerCopy.gameBoard.placeNewShip(0,'horizontal',true)
       setcomputerPlayer(computerCopy)
       setuserMessage('Select Your Difficulty!')
-      
       } 
     }
   };
+
  const recieveAttackCoordinates = (coordinates) =>{
-   
-   if (gameActive === true){
+   let humanShot;
+   let computerShot
+   if (gameActive){
     const computerCopy = Object.assign({}, computerPlayer);
-    
-    const reaction = computerCopy.gameBoard.receiveAttack(coordinates,false)
+    computerShot = computerCopy.gameBoard.receiveAttack(coordinates,false)
     setcomputerPlayer(computerCopy)
-    console.log(reaction)
-    if (reaction === 'This position has already been targeted'){
+   
+    let gameOver = isGameOver('Human')
+    
+    if (computerShot === 'This position has already been targeted' || gameOver){
       return 0
     }
-    let co = Math.floor(Math.random() * 100);
-      const humanCopy = Object.assign({}, humanPlayer);
-      
-      let possibleAttack = humanCopy.gameBoard.receiveAttack(co,true,Difficulty)
-      sethumanPlayer(humanCopy) 
-        return 0
+
+    const randomCoord = Math.floor(Math.random() * 100);
+    const humanCopy = Object.assign({}, humanPlayer);
+    humanShot = humanCopy.gameBoard.receiveAttack(randomCoord,true,difficulty)
+    sethumanPlayer(humanCopy) 
+    setuserMessage(`Human: ${humanShot} -- Computer: ${computerShot}`)
+    isGameOver('Computer')
    }
+   return gameActive
  
+ };
+
+ const isGameOver = (winner) => {
+   if (computerPlayer.gameBoard.shipsOnBoard.length === 0 || humanPlayer.gameBoard.shipsOnBoard.length === 0){
+     setgameActive(false)
+     setuserMessage(`Game Over -- ${winner} has Won!`)
+     return true
+    }
+    return false
+
  }
   return (
     <div className="App">
-      <Header startGame={startGame} gameActive={gameActive} userMessage={userMessage} setuserMessage={setuserMessage}/>
+      <Header initializeGame={initializeGame} 
+      gameActive={gameActive} 
+      userMessage={userMessage} 
+      setuserMessage={setuserMessage}/>
       
       <Main humanPlayer={humanPlayer} 
       computerPlayer={computerPlayer} 

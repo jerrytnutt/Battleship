@@ -1,6 +1,6 @@
 const battleship = (length) => {
     return{
-        length:length,
+        length: length,
         hit(num){
         this.positions[num] = 'X'
         return this.isSunk()
@@ -11,7 +11,6 @@ const battleship = (length) => {
             return true
           }
           return false
-          
         }
     }
 }

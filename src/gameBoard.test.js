@@ -42,8 +42,9 @@ test('With random set to true all available ships will be placed', () => {
 
 test('Ship Hit Test', () => {
   const newBoard = gameBoard('human')
-  newBoard.placeNewShip(11,"horizontal",false)
-  expect(newBoard.receiveAttack(11,false)).toBe("Ship was Hit");
+  let coord = 11
+  newBoard.placeNewShip(coord,"horizontal",false)
+  expect(newBoard.receiveAttack(11,false)).toBe(`Ship was Hit at ${coord}`);
 });
 
 test('Ship Sunk Test', () => {
@@ -57,7 +58,7 @@ test('Ship Sunk Test', () => {
   newBoard.receiveAttack(12,false)
   newBoard.receiveAttack(13,false)
   newBoard.receiveAttack(14,false)
-  expect(newBoard.receiveAttack(15,false)).toBe("Ship was Sunk");
+  expect(newBoard.receiveAttack(15,false)).toBe("Battleship was Sunk");
 });
 
 test('Attack an already hot position will return', () => {
