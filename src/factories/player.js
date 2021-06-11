@@ -1,6 +1,3 @@
-
-//import gameBoard from "./gameBoard"
-
 const player = (type) => {
   return {
             type: type
@@ -8,4 +5,3 @@ const player = (type) => {
 }
 
 export default player
-

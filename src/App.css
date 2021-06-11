@@ -14,12 +14,14 @@
   width: 100%;
   height: 150px;
 }
+
 .title{
   color: white;
   font-size: 55px;
 }
+
 .messageBox{
-  width: 40%;
+  width: 45%;
   height: 80px;
   margin: auto;
   font-size: 20px;
@@ -31,7 +33,7 @@
 
 .startButton{
   height: 60px;
-  width: 10%;
+  width: 15%;
   font-size: 20px;
   margin: 10px;
   background-color: rgb(139, 245, 86);
@@ -43,16 +45,20 @@
 .boardContainers{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   width: 60%;
 }
+
 .board{
-  width: 50%;
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 15px;
+  margin-right: 15px; 
 }
+
 h2, h4{
   margin: 0px;
 }
@@ -61,24 +67,25 @@ h2, h4{
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   height: 450px;
-  width: 100%;
+  width: 400px;
   margin: 10px;
 }
 
 .box{
   border: 1px solid black;
 }
+
 .box:hover{
   border: 1px solid white;
   opacity: 0.8;
   cursor: pointer;
 }
 
-.x{
+.outerContainer{
   margin-top: 15%;
   width: 45%;
-  background-color: rgb(160, 158, 158);
 }
+
 .middleContainer{
   font-size: 20px;
   padding: 10px;
@@ -86,16 +93,20 @@ h2, h4{
   color: white;
   text-align: center;
 }
+
 .middleContainer div{
   margin-bottom: 5px;
   color: white;
 }
+
 .middleContainer button{
   color: black;
   font-size: 20px;
+  margin: 5px;
   padding: 5px;
   cursor: pointer;
 }
+
 .radio{
   margin-top: 10px;
   display: flex;

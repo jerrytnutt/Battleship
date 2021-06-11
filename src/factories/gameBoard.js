@@ -40,10 +40,12 @@ const gameBoard = () => {
           } 
           startPoint+=1
             } 
+
           if (hover) {
             hoverPositions.push(...positions)
             return hoverPositions
          } 
+
           const newShip = battleship(length)
           newShip.positions = positions
           coverdPositions.push(...positions)
@@ -99,12 +101,11 @@ const gameBoard = () => {
               console.log('Game Over')
               return 'Game Over'
            }
-            //console.log('Ship was Sunk')
             return 'Battleship was Sunk'
           }
-          //console.log(`Ship was Hit at ${coordinates}`)
-           return `Ship was Hit at ${coordinates}`
+           return `Ship was Hit at [${coordinates}]`
          }
+
         if(difficulty === 'hard'){
           if (lastHitShip.length > 0){
             const length = lastHitShip[0].positions.length

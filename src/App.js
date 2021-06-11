@@ -1,7 +1,7 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Header from './components/header'
-import player from './player'
-import gameBoard from './gameBoard'
+import player from './factories/player'
+import gameBoard from './factories/gameBoard'
 import Main from './components/main.js'
 import './App.css';
 
@@ -53,7 +53,7 @@ function App() {
     computerShot = computerCopy.gameBoard.receiveAttack(coordinates,false)
     setcomputerPlayer(computerCopy)
    
-    let gameOver = isGameOver('Human')
+    const gameOver = isGameOver('Human')
     
     if (computerShot === 'This position has already been targeted' || gameOver){
       return 0
@@ -62,12 +62,12 @@ function App() {
     const randomCoord = Math.floor(Math.random() * 100);
     const humanCopy = Object.assign({}, humanPlayer);
     humanShot = humanCopy.gameBoard.receiveAttack(randomCoord,true,difficulty)
+
     sethumanPlayer(humanCopy) 
     setuserMessage(`Human: ${humanShot} -- Computer: ${computerShot}`)
     isGameOver('Computer')
    }
    return gameActive
- 
  };
 
  const isGameOver = (winner) => {
@@ -77,10 +77,13 @@ function App() {
      return true
     }
     return false
-
- }
+ };
+ useEffect(() => {
+  document.title = "Battleship"
+}, []);
   return (
     <div className="App">
+      
       <Header initializeGame={initializeGame} 
       gameActive={gameActive} 
       userMessage={userMessage} 

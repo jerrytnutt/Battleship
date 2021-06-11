@@ -44,14 +44,12 @@ test('Ship Hit Test', () => {
   const newBoard = gameBoard('human')
   let coord = 11
   newBoard.placeNewShip(coord,"horizontal",false)
-  expect(newBoard.receiveAttack(11,false)).toBe(`Ship was Hit at ${coord}`);
+  expect(newBoard.receiveAttack(11,false)).toBe(`Ship was Hit at [${coord}]`);
 });
 
-test('Ship Sunk Test', () => {
+test('Battleship Sunk Test', () => {
   const newBoard = gameBoard('human')
-  
-  newBoard.placeNewShip(40,"horizontal",false)
- 
+  newBoard.placeNewShip(80,"horizontal",false)
 
   newBoard.placeNewShip(11,"horizontal",false)
   newBoard.receiveAttack(11,false)
@@ -61,17 +59,29 @@ test('Ship Sunk Test', () => {
   expect(newBoard.receiveAttack(15,false)).toBe("Battleship was Sunk");
 });
 
-test('Attack an already hot position will return', () => {
+test('Attacking an already hit position will return "This position has already been targeted"', () => {
   const newBoard = gameBoard('human')
   newBoard.placeNewShip(11,"horizontal",false)
   newBoard.receiveAttack(11,false)
- 
-  
   expect(newBoard.receiveAttack(11,false)).toBe("This position has already been targeted");
 });
 
-test('Attack an already hot position will return', () => {
+test('Missed Shot Test', () => {
   const newBoard = gameBoard('human')
   newBoard.placeNewShip(20,"horizontal",false)
   expect(newBoard.receiveAttack(0,false)).toBe("Missed Shot");
+});
+
+test('Board updates missed shots', () => {
+  const newBoard = gameBoard('human')
+  newBoard.placeNewShip(20,"horizontal",false)
+  newBoard.receiveAttack(19,false)
+  expect(typeof newBoard.board[19]).toBe("string");
+});
+
+test('Board records last hit ship for Hard difficulty', () => {
+  const newBoard = gameBoard('human')
+  newBoard.placeNewShip(20,"horizontal",false)
+  newBoard.receiveAttack(20,false)
+  expect(newBoard.lastHitShip[0].positions[0]).toBe("X");
 });
