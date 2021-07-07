@@ -12,7 +12,6 @@
   align-items: center;
   background-color: black;
   width: 100%;
-  height: 150px;
 }
 
 .title{
@@ -22,7 +21,6 @@
 
 .messageBox{
   width: 45%;
-  height: 80px;
   margin: auto;
   font-size: 20px;
   text-align: center;
@@ -32,7 +30,6 @@
 }
 
 .startButton{
-  height: 60px;
   width: 15%;
   font-size: 20px;
   margin: 10px;
@@ -49,7 +46,6 @@
   align-items: center;
   flex-wrap: wrap;
   width: 60%;
-  
 }
 
 .board{
@@ -58,7 +54,6 @@
   flex-direction: column;
   align-items: center;
   margin-right: 15px; 
-  
 }
 
 h2, h4{
